@@ -65,16 +65,17 @@ The suite (`tests/http-server.test.ts`) exercises the HTTP API (authorization, v
 
 Codex can invoke an external script for every agent turn. Use the provided script:
 
-1. Copy `integrations/codex-notify/notify.mjs` somewhere accessible (e.g., `~/.codex/notify.mjs`).
-2. In `~/.codex/config.toml`, configure the `notify` setting:
+Install via one-liner:
 
-   ```toml
-   notify = ["node", "/Users/you/.codex/notify.mjs", "https://your-bridge.example.com", "your-shared-token"]
-   ```
+```bash
+curl -fsSL https://raw.githubusercontent.com/adam-paterson/codex-opencode-notifier/main/scripts/install-codex-notify.sh | bash
+```
 
-3. The script accepts `(bridgeUrl, authToken)` and posts the event payload to `POST /events`.
+The installer copies `notify.mjs` to `~/.codex/notify.mjs` (override with `DEST=...`), prints the snippet to add to `~/.codex/config.toml`, and reminds you to restart Codex.
 
-If you run Codex on multiple machines, distribute the same script and token.
+```toml
+notify = ["node", "/Users/you/.codex/notify.mjs", "https://your-bridge.example.com", "your-shared-token"]
+```
 
 ### Script Arguments
 
@@ -86,16 +87,18 @@ node notify.mjs <bridgeUrl> <authToken> '<JSON_PAYLOAD>'
 
 ## Integrating with OpenCode (Plugin)
 
-1. Copy `integrations/opencode-plugin/index.ts` into `.opencode/plugin/discord-bridge.ts` (or place it in `~/.config/opencode/plugin`).
-2. Install dependencies for the plugin package (see inline README snippet).
-3. Configure environment variables for the plugin (either via `.env` or OS env):
+Install via one-liner:
 
-   ```bash
-   export DISCORD_BRIDGE_URL="https://your-bridge.example.com"
-   export DISCORD_BRIDGE_TOKEN="your-shared-token"
-   ```
+```bash
+curl -fsSL https://raw.githubusercontent.com/adam-paterson/codex-opencode-notifier/main/scripts/install-opencode-plugin.sh | bash
+```
 
-4. Restart OpenCode. The plugin listens for session events and posts them to `/events` while polling `/replies/drain` to forward Discord replies back into the session.
+By default the plugin lands in `~/.config/opencode/plugin/discord-bridge.ts` (override with `DEST=...`) and a readme is placed alongside it. Restart OpenCode after setting:
+
+```bash
+export DISCORD_BRIDGE_URL="https://your-bridge.example.com"
+export DISCORD_BRIDGE_TOKEN="your-shared-token"
+``` 
 
 ## HTTP API Reference
 
