@@ -21,6 +21,16 @@ The project is designed for distribution: it includes a reusable HTTP bridge, Di
 - Hosted Codex CLI with `notify` configured.
 - OpenCode CLI (>= 0.3) with plugin support.
 
+### Discord Setup
+
+1. Go to the [Discord Developer Portal](https://discord.com/developers/applications) and create (or reuse) an application.
+2. Under **Bot**, add a bot user and copy its token for `DISCORD_TOKEN`.
+3. Enable **Message Content Intent** (and optionally Presence intent) in the bot settings.
+4. Generate an invite under **OAuth2 → URL Generator** with the `bot` scope and permissions to send messages, create/manage threads, add reactions, and read history.
+5. Invite the bot to your guild using the generated URL.
+6. Enable developer mode in Discord (Settings → Advanced), right-click the target channel, and copy its ID for `DISCORD_CHANNEL_ID`.
+7. Ensure the bot role in that channel can send messages, start threads, and react.
+
 ## Installation
 
 ```bash
