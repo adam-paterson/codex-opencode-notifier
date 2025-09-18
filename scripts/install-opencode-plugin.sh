@@ -7,7 +7,7 @@ BASE_URL="https://raw.githubusercontent.com/${PROJECT_REPO}/main"
 SOURCE_PATH="integrations/opencode-plugin/index.ts"
 README_PATH="integrations/opencode-plugin/README.md"
 
-if [[ "${1:-}" == "--help" ]]; then
+if [ "${1:-}" = "--help" ]; then
   cat <<'USAGE'
 Install the OpenCode Discord bridge plugin.
 
@@ -29,7 +29,9 @@ printf 'Repository : %s\n' "$PROJECT_REPO"
 printf 'Source     : %s\n' "$SOURCE_PATH"
 printf 'Destination: %s\n' "$DEST_PATH"
 
-read -r -p "Proceed with installation? [y/N] " response
+printf 'Proceed with installation? [y/N] '
+read -r response || response=""
+printf '\n'
 case "$response" in
   [yY][eE][sS]|[yY]) ;;
   *)
@@ -46,7 +48,8 @@ cleanup() { rm -f "$TMP_MAIN" "$TMP_README"; }
 trap cleanup EXIT
 
 download() {
-  local src=$1 dest=$2
+  src="$1"
+  dest="$2"
   if command -v curl >/dev/null 2>&1; then
     curl -fsSL "${BASE_URL}/${src}" -o "$dest"
   elif command -v wget >/dev/null 2>&1; then

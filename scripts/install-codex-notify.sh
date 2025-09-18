@@ -6,7 +6,7 @@ DEFAULT_DEST="${HOME}/.codex/notify.mjs"
 BASE_URL="https://raw.githubusercontent.com/${PROJECT_REPO}/main"
 SOURCE_PATH="integrations/codex-notify/notify.mjs"
 
-if [[ "${1:-}" == "--help" ]]; then
+if [ "${1:-}" = "--help" ]; then
   cat <<'USAGE'
 Install the Codex notify bridge script.
 
@@ -27,7 +27,9 @@ printf 'Repository : %s\n' "$PROJECT_REPO"
 printf 'Source     : %s\n' "$SOURCE_PATH"
 printf 'Destination: %s\n' "$DEST_PATH"
 
-read -r -p "Proceed with installation? [y/N] " response
+printf 'Proceed with installation? [y/N] '
+read -r response || response=""
+printf '\n'
 case "$response" in
   [yY][eE][sS]|[yY]) ;;
   *)
