@@ -70,6 +70,7 @@ Install via one-liner:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/adam-paterson/codex-opencode-notifier/main/scripts/install-codex-notify.sh | bash
 ```
+(use `ASSUME_YES=1` in front of the command for non-interactive environments)
 
 The installer copies `notify.mjs` to `~/.codex/notify.mjs` (override with `DEST=...`), prints the snippet to add to `~/.codex/config.toml`, and reminds you to restart Codex.
 
@@ -92,6 +93,7 @@ Install via one-liner:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/adam-paterson/codex-opencode-notifier/main/scripts/install-opencode-plugin.sh | bash
 ```
+(set `ASSUME_YES=1` if running non-interactively)
 
 By default the plugin lands in `~/.config/opencode/plugin/discord-bridge.ts` (override with `DEST=...`) and a readme is placed alongside it. Restart OpenCode after setting:
 

@@ -29,16 +29,25 @@ printf 'Repository : %s\n' "$PROJECT_REPO"
 printf 'Source     : %s\n' "$SOURCE_PATH"
 printf 'Destination: %s\n' "$DEST_PATH"
 
-printf 'Proceed with installation? [y/N] '
-read -r response || response=""
-printf '\n'
-case "$response" in
-  [yY][eE][sS]|[yY]) ;;
-  *)
-    printf 'Installation cancelled.\n'
+if [ -t 0 ]; then
+  printf 'Proceed with installation? [y/N] '
+  read -r response || response=""
+  printf '\n'
+  case "$response" in
+    [yY][eE][sS]|[yY]) ;;
+    *)
+      printf 'Installation cancelled.\n'
+      exit 1
+      ;;
+  esac
+else
+  if [ "${ASSUME_YES:-}" = "1" ]; then
+    printf 'Non-interactive shell detected; proceeding with ASSUME_YES=1.\n\n'
+  else
+    printf 'Non-interactive shell detected. Re-run with ASSUME_YES=1 to proceed automatically.\n'
     exit 1
-    ;;
-esac
+  fi
+fi
 
 mkdir -p "$(dirname "$DEST_PATH")"
 
