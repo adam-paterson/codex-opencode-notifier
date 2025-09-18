@@ -39,10 +39,14 @@ if [ -t 0 ]; then
       ;;
   esac
 else
-  if [ "${ASSUME_YES:-}" = "1" ]; then
-    printf 'Non-interactive shell detected; proceeding with ASSUME_YES=1.\n\n'
+  if [ "${ASSUME_NO:-}" = "1" ]; then
+    printf 'Non-interactive shell detected; ASSUME_NO=1 prevents installation.\n'
+    exit 1
+  fi
+  if [ "${ASSUME_YES:-1}" = "1" ]; then
+    printf 'Non-interactive shell detected; proceeding (set ASSUME_NO=1 to abort).\n\n'
   else
-    printf 'Non-interactive shell detected. Re-run with ASSUME_YES=1 to proceed automatically.\n'
+    printf 'Non-interactive shell detected. Set ASSUME_YES=1 to proceed automatically.\n'
     exit 1
   fi
 fi
